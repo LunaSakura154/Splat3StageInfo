@@ -203,7 +203,7 @@ public class Splatoon3ink : MonoBehaviour
         GetInformation();
         //SetInformation();
     }
-    async void GetInformation()
+    public async void GetInformation()
     {
         HttpClient httpClient = new HttpClient();
         var result = await httpClient.GetAsync("https://splatoon3.ink/data/schedules.json");
