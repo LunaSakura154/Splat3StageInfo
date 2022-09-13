@@ -189,8 +189,13 @@ public class Splatoon3ink : MonoBehaviour
     public int stageao1;
     public string stageao1Name;
 
+    public string seriesMode;
+    public string openMode;
+
     public List<Node> nodesRegular;
     public List<Node> nodesAnarchy;
+
+    public float cooldown;
 
     
     private void Start()
@@ -205,15 +210,21 @@ public class Splatoon3ink : MonoBehaviour
         var data = JsonConvert.DeserializeObject<Root>(await result.Content.ReadAsStringAsync());
         nodesRegular = data.data.regularSchedules.nodes;
         nodesAnarchy = data.data.bankaraSchedules.nodes;
+        Debug.Log("Information Requested");
         SetInformation();
         await Task.Delay(-1);
 
     }
 
-    //private void Update()
-    //{
-    //    SetInformation();
-    //}
+    private void Update()
+    {
+        cooldown -= Time.deltaTime;
+        if (cooldown <= 0)
+        {
+            GetInformation();
+            cooldown = 300;
+        }
+    }
 
     void SetInformation()
     {
@@ -231,5 +242,8 @@ public class Splatoon3ink : MonoBehaviour
         stageao0Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].name;
         stageao1 = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].vsStageId;
         stageao1Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].name;
+
+        seriesMode = nodesAnarchy[0].bankaraMatchSettings[0].vsRule.name;
+        openMode = nodesAnarchy[0].bankaraMatchSettings[1].vsRule.name;
     }
 }

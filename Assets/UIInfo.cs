@@ -21,6 +21,8 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI ser1n;
     [SerializeField] TextMeshProUGUI op0n;
     [SerializeField] TextMeshProUGUI op1n;
+    [SerializeField] TextMeshProUGUI series;
+    [SerializeField] TextMeshProUGUI open;
 
     public Sprite[] images;
 
@@ -39,5 +41,8 @@ public class UIInfo : MonoBehaviour
         ser1.sprite = images[ink.stageas1];
         op0.sprite = images[ink.stageao0];
         op1.sprite = images[ink.stageao1];
+
+        series.text = ink.seriesMode;
+        open.text = ink.openMode;
     }
 }
