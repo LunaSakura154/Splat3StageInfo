@@ -11,8 +11,18 @@ public class Notifications : MonoBehaviour
 
     private void Start()
     {
-        //AndroidNotificationCenter.CancelAllScheduledNotifications();
-        for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2); i < 24; i+=2)
+        var channel = new AndroidNotificationChannel
+        {
+            Id = "Splatcast",
+            Name = "Splatcast",
+            Importance = Importance.Default,
+            Description = "Splatcast News"
+        };
+        AndroidNotificationCenter.RegisterNotificationChannel(channel);
+
+        AndroidNotificationCenter.CancelAllScheduledNotifications();
+        //TestNotif();
+        for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2)+2; i < 24; i+=2)
         {
             Lol(i,0);
         }
@@ -27,7 +37,7 @@ public class Notifications : MonoBehaviour
         notification.Text = "Stages just rotated!";
         DateTime today = DateTime.Today;
         notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
-        AndroidNotificationCenter.SendNotification(notification, "channel_id");
+        AndroidNotificationCenter.SendNotification(notification, "Splatcast");
     }
 
     public void TestNotif()
@@ -35,7 +45,7 @@ public class Notifications : MonoBehaviour
         var notification = new AndroidNotification();
         notification.Title = "Test Notification";
         notification.Text = "please just work";
-        notification.FireTime = DateTime.Now;
-        AndroidNotificationCenter.SendNotification(notification, "Testing");
+        notification.FireTime = DateTime.Now.AddSeconds(30);
+        AndroidNotificationCenter.SendNotification(notification, "Splatcast");
     }
 }
