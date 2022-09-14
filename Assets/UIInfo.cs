@@ -14,6 +14,7 @@ public class UIInfo : MonoBehaviour
     [SerializeField] UnityEngine.UI.Image ser1;
     [SerializeField] UnityEngine.UI.Image op0;
     [SerializeField] UnityEngine.UI.Image op1;
+    [SerializeField] UnityEngine.UI.Image coop;
     [Header("Names")]
     [SerializeField] TextMeshProUGUI reg0n;
     [SerializeField] TextMeshProUGUI reg1n;
@@ -23,8 +24,12 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI op1n;
     [SerializeField] TextMeshProUGUI series;
     [SerializeField] TextMeshProUGUI open;
+    [SerializeField] TextMeshProUGUI coopn;
+
+    [SerializeField] TextMeshProUGUI version;
 
     public Sprite[] images;
+    public Sprite[] coopImages;
 
     private void Update()
     {
@@ -44,5 +49,10 @@ public class UIInfo : MonoBehaviour
 
         series.text = ink.seriesMode;
         open.text = ink.openMode;
+
+        coop.sprite = coopImages[ink.coopStage];
+        coopn.text = ink.coopName;
+
+        version.text = Application.version;
     }
 }

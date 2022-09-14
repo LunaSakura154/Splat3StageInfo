@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BankaraMatchSetting
 {
@@ -192,8 +193,12 @@ public class Splatoon3ink : MonoBehaviour
     public string seriesMode;
     public string openMode;
 
+    public int coopStage;
+    public string coopName;
+
     public List<Node> nodesRegular;
     public List<Node> nodesAnarchy;
+    public List<Node> nodesCoop;
 
     public float cooldown;
 
@@ -210,6 +215,7 @@ public class Splatoon3ink : MonoBehaviour
         var data = JsonConvert.DeserializeObject<Root>(await result.Content.ReadAsStringAsync());
         nodesRegular = data.data.regularSchedules.nodes;
         nodesAnarchy = data.data.bankaraSchedules.nodes;
+        nodesCoop = data.data.coopGroupingSchedule.regularSchedules.nodes;
         Debug.Log("Information Requested");
         SetInformation();
         await Task.Delay(-1);
@@ -245,5 +251,7 @@ public class Splatoon3ink : MonoBehaviour
 
         seriesMode = nodesAnarchy[0].bankaraMatchSettings[0].vsRule.name;
         openMode = nodesAnarchy[0].bankaraMatchSettings[1].vsRule.name;
+        coopStage = nodesCoop[0].setting.coopStage.coopStageId;
+        coopName = nodesCoop[0].setting.coopStage.name;
     }
 }
