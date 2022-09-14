@@ -11,7 +11,7 @@ public class Notifications : MonoBehaviour
 
     private void Start()
     {
-        AndroidNotificationCenter.CancelAllScheduledNotifications();
+        //AndroidNotificationCenter.CancelAllScheduledNotifications();
         for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2)+2; i < 24; i+=2)
         {
             Lol(i,0);
@@ -26,8 +26,7 @@ public class Notifications : MonoBehaviour
         notification.Title = "Splatcast!";
         notification.Text = "Stages just rotated!";
         DateTime today = DateTime.Today;
-        notification.FireTime = new DateTime(today.Year, today.Month, today.Day+day, hour, 0, 0);
-
+        notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
         AndroidNotificationCenter.SendNotification(notification, "channel_id");
     }
 }
