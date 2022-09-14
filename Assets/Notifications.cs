@@ -12,7 +12,7 @@ public class Notifications : MonoBehaviour
     private void Start()
     {
         //AndroidNotificationCenter.CancelAllScheduledNotifications();
-        for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2)+2; i < 24; i+=2)
+        for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2); i < 24; i+=2)
         {
             Lol(i,0);
         }
@@ -28,5 +28,14 @@ public class Notifications : MonoBehaviour
         DateTime today = DateTime.Today;
         notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
         AndroidNotificationCenter.SendNotification(notification, "channel_id");
+    }
+
+    public void TestNotif()
+    {
+        var notification = new AndroidNotification();
+        notification.Title = "Test Notification";
+        notification.Text = "please just work";
+        notification.FireTime = DateTime.Now;
+        AndroidNotificationCenter.SendNotification(notification, "Testing");
     }
 }

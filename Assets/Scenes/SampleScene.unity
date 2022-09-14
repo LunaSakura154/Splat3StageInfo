@@ -3360,7 +3360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1978063696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3428,7 +3428,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 333088274}
         m_TargetAssemblyTypeName: Notifications, Assembly-CSharp
-        m_MethodName: Lol
+        m_MethodName: TestNotif
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
