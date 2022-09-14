@@ -26,7 +26,10 @@ public class Notifications : MonoBehaviour
         {
             Lol(i,0);
         }
-        Lol(0, 1);
+        for (int i = 0; i < 24; i+= 2)
+        {
+            Lol(i, 1);
+        }
     }
 
     public void Lol(int hour, int day)
