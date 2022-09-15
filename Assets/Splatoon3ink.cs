@@ -254,4 +254,9 @@ public class Splatoon3ink : MonoBehaviour
         coopStage = nodesCoop[0].setting.coopStage.coopStageId;
         coopName = nodesCoop[0].setting.coopStage.name;
     }
+
+    public void SalmonImages()
+    {
+
+    }
 }

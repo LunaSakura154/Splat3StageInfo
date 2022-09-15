@@ -11,6 +11,7 @@ public class Notifications : MonoBehaviour
 
     private void Start()
     {
+        
         var channel = new AndroidNotificationChannel
         {
             Id = "Splatcast",
@@ -22,13 +23,25 @@ public class Notifications : MonoBehaviour
 
         AndroidNotificationCenter.CancelAllScheduledNotifications();
         //TestNotif();
-        for (int i = ((int)Mathf.Round(DateTime.Now.Hour/2) * 2)+2; i < 24; i+=2)
+        for (int i = 0; i < 24; i+=2)
         {
-            Lol(i,0);
+            if (IsEven(DateTime.Now.Hour))
+            {
+                Lol(i, 0);
+            }
+            else
+            {
+                Lol(i + 1, 0);
+            }
         }
         for (int i = 0; i < 24; i+= 2)
         {
             Lol(i, 1);
+        }
+
+        if (Debug.isDebugBuild)
+        {
+            TestNotif();
         }
     }
 
@@ -39,16 +52,31 @@ public class Notifications : MonoBehaviour
         notification.Title = "Splatcast!";
         notification.Text = "Stages just rotated!";
         DateTime today = DateTime.Today;
-        notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
+        //notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
+        notification.FireTime = DateTime.Now.AddHours(hour);
         AndroidNotificationCenter.SendNotification(notification, "Splatcast");
     }
 
     public void TestNotif()
     {
-        var notification = new AndroidNotification();
-        notification.Title = "Test Notification";
-        notification.Text = "please just work";
-        notification.FireTime = DateTime.Now.AddSeconds(30);
-        AndroidNotificationCenter.SendNotification(notification, "Splatcast");
+        for (int i = 0; i < 60; i+=5)
+        {
+            var notification = new AndroidNotification();
+            notification.Title = "Debug Notif";
+            notification.Text = "DebugNotif";
+            DateTime today = DateTime.Today;
+            notification.FireTime = new DateTime(today.Year, today.Month,today.Day,today.Hour,i,0);
+            AndroidNotificationCenter.SendNotification(notification, "Splatcast");
+
+        }
+    }
+
+    public bool IsEven(int num)
+    {
+        if (num % 2 == 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
