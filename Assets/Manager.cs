@@ -13,6 +13,7 @@ public class Manager : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_ANDROID
         if(Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown)
         {
             PortraitUI.SetActive(true);
@@ -23,5 +24,8 @@ public class Manager : MonoBehaviour
             PortraitUI.SetActive(false);
             LandscapeUI.SetActive(true);
         }
+#endif
+        
+
     }
 }

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -199,9 +200,14 @@ public class Splatoon3ink : MonoBehaviour
     public List<Node> nodesRegular;
     public List<Node> nodesAnarchy;
     public List<Node> nodesCoop;
+    public List<Weapon> salmonWeapons;
 
     public float cooldown;
 
+    public Texture weap0;
+    public Texture weap1;
+    public Texture weap2;
+    public Texture weap3;
     
     private void Start()
     {
@@ -216,6 +222,7 @@ public class Splatoon3ink : MonoBehaviour
         nodesRegular = data.data.regularSchedules.nodes;
         nodesAnarchy = data.data.bankaraSchedules.nodes;
         nodesCoop = data.data.coopGroupingSchedule.regularSchedules.nodes;
+        salmonWeapons = data.data.coopGroupingSchedule.regularSchedules.nodes[0].setting.weapons;
         Debug.Log("Information Requested");
         SetInformation();
         await Task.Delay(-1);
@@ -253,10 +260,23 @@ public class Splatoon3ink : MonoBehaviour
         openMode = nodesAnarchy[0].bankaraMatchSettings[1].vsRule.name;
         coopStage = nodesCoop[0].setting.coopStage.coopStageId;
         coopName = nodesCoop[0].setting.coopStage.name;
+        StartCoroutine(GetWeapons());
     }
 
-    public void SalmonImages()
+    public IEnumerator GetWeapons()
     {
+        UnityWebRequest www0 = UnityWebRequestTexture.GetTexture(salmonWeapons[0].image.url);
+        yield return www0.SendWebRequest();
+        weap0 = ((DownloadHandlerTexture)www0.downloadHandler).texture;
+        UnityWebRequest www1 = UnityWebRequestTexture.GetTexture(salmonWeapons[1].image.url);
+        yield return www1.SendWebRequest();
+        weap1 = ((DownloadHandlerTexture)www1.downloadHandler).texture;
+        UnityWebRequest www2 = UnityWebRequestTexture.GetTexture(salmonWeapons[2].image.url);
+        yield return www2.SendWebRequest();
+        weap2 = ((DownloadHandlerTexture)www2.downloadHandler).texture;
+        UnityWebRequest www3 = UnityWebRequestTexture.GetTexture(salmonWeapons[3].image.url);
+        yield return www3.SendWebRequest();
+        weap3 = ((DownloadHandlerTexture)www3.downloadHandler).texture;
 
     }
 }

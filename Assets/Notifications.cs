@@ -1,3 +1,6 @@
+#if UNITY_ANDROID
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +30,8 @@ public class Notifications : MonoBehaviour
         {
             if (IsEven(DateTime.Now.Hour))
             {
-                Lol(i+2, 0);
+                Debug.Log(IsEven(DateTime.Now.Hour));
+                Lol(i + 2, 0);
             }
             else
             {
@@ -36,24 +40,25 @@ public class Notifications : MonoBehaviour
         }
         for (int i = 0; i < 24; i+= 2)
         {
-            Lol(i, 1);
+            //Lol(i, 1);
         }
 
         if (Debug.isDebugBuild)
         {
-            TestNotif();
+            //TestNotif();
         }
     }
 
     public void Lol(int hour, int day)
     {
-        Debug.Log("Sending notification at "+ hour +"&"+ day);
         var notification = new AndroidNotification();
+        DateTime timing = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, 0, 0);
         notification.Title = "Splatcast!";
         notification.Text = "Stages just rotated!";
-        DateTime timing = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + day, DateTime.Now.Hour, 0, 0);
+        notification.ShowTimestamp = true;
         //notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
         notification.FireTime = timing.AddHours(hour);
+        Debug.Log("Sending notification at "+ timing.AddHours(hour));
         AndroidNotificationCenter.SendNotification(notification, "Splatcast");
     }
 
@@ -78,5 +83,7 @@ public class Notifications : MonoBehaviour
             return true;
         }
         return false;
+
     }
 }
+#endif

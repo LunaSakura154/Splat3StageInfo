@@ -15,6 +15,10 @@ public class UIInfo : MonoBehaviour
     [SerializeField] UnityEngine.UI.Image op0;
     [SerializeField] UnityEngine.UI.Image op1;
     [SerializeField] UnityEngine.UI.Image coop;
+    [SerializeField] UnityEngine.UI.RawImage weapon0;
+    [SerializeField] UnityEngine.UI.RawImage weapon1;
+    [SerializeField] UnityEngine.UI.RawImage weapon2;
+    [SerializeField] UnityEngine.UI.RawImage weapon3;
     [Header("Names")]
     [SerializeField] TextMeshProUGUI reg0n;
     [SerializeField] TextMeshProUGUI reg1n;
@@ -54,5 +58,11 @@ public class UIInfo : MonoBehaviour
         coopn.text = ink.coopName;
 
         version.text = Application.version;
+        
+        weapon0.texture = ink.weap0;
+        weapon1.texture = ink.weap1;
+        weapon2.texture = ink.weap2;
+        weapon3.texture = ink.weap3;
+
     }
 }
