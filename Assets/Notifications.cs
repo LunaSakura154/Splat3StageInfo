@@ -27,7 +27,7 @@ public class Notifications : MonoBehaviour
         {
             if (IsEven(DateTime.Now.Hour))
             {
-                Lol(i, 0);
+                Lol(i+2, 0);
             }
             else
             {
@@ -51,21 +51,21 @@ public class Notifications : MonoBehaviour
         var notification = new AndroidNotification();
         notification.Title = "Splatcast!";
         notification.Text = "Stages just rotated!";
-        DateTime today = DateTime.Today;
+        DateTime timing = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + day, DateTime.Now.Hour, 0, 0);
         //notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
-        notification.FireTime = DateTime.Now.AddHours(hour);
+        notification.FireTime = timing.AddHours(hour);
         AndroidNotificationCenter.SendNotification(notification, "Splatcast");
     }
 
     public void TestNotif()
     {
-        for (int i = 0; i < 60; i+=5)
+        for (int i = 0; i < 60; i+=1)
         {
             var notification = new AndroidNotification();
             notification.Title = "Debug Notif";
             notification.Text = "DebugNotif";
             DateTime today = DateTime.Today;
-            notification.FireTime = new DateTime(today.Year, today.Month,today.Day,today.Hour,i,0);
+            notification.FireTime = DateTime.Now.AddMinutes(i);
             AndroidNotificationCenter.SendNotification(notification, "Splatcast");
 
         }
