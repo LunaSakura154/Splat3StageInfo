@@ -30,7 +30,10 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI open;
     [SerializeField] TextMeshProUGUI coopn;
 
+    [Header("Misc")]
     [SerializeField] TextMeshProUGUI version;
+    [SerializeField] TextMeshProUGUI timeRegu;
+    [SerializeField] TextMeshProUGUI timeCoop;
 
     public Sprite[] images;
     public Sprite[] coopImages;
@@ -63,6 +66,9 @@ public class UIInfo : MonoBehaviour
         weapon1.texture = ink.weap1;
         weapon2.texture = ink.weap2;
         weapon3.texture = ink.weap3;
+
+        timeRegu.text = new string(ink.timeRegS + " - " + ink.timeRegE);
+        timeCoop.text = new string(ink.timeCoopS + " - " + ink.timeCoopE);
 
     }
 }

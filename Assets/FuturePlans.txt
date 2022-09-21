@@ -1,0 +1,9 @@
+v1.5
+-Splatfest Support
+
+v2.x
+-Music Player
+-Multiple Backgrounds
+-UTC Time
+-Squid Jump remake
+-

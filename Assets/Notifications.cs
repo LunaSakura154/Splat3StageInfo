@@ -26,7 +26,7 @@ public class Notifications : MonoBehaviour
 
         AndroidNotificationCenter.CancelAllScheduledNotifications();
         //TestNotif();
-        for (int i = 0; i < 24; i+=2)
+        for (int i = 0; i < 168; i+=2)
         {
             if (IsEven(DateTime.Now.Hour))
             {
@@ -56,6 +56,8 @@ public class Notifications : MonoBehaviour
         notification.Title = "Splatcast!";
         notification.Text = "Stages just rotated!";
         notification.ShowTimestamp = true;
+        notification.SmallIcon = "icon_0";
+        notification.LargeIcon = "icon_1";
         //notification.FireTime = new DateTime(today.Year, today.Month, today.Day + day, hour, 0, 0);
         notification.FireTime = timing.AddHours(hour);
         Debug.Log("Sending notification at "+ timing.AddHours(hour));

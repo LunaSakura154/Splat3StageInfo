@@ -208,6 +208,11 @@ public class Splatoon3ink : MonoBehaviour
     public Texture weap1;
     public Texture weap2;
     public Texture weap3;
+
+    public string timeRegS;
+    public string timeRegE;
+    public string timeCoopS;
+    public string timeCoopE;
     
     private void Start()
     {
@@ -231,12 +236,12 @@ public class Splatoon3ink : MonoBehaviour
 
     private void Update()
     {
-        cooldown -= Time.deltaTime;
-        if (cooldown <= 0)
-        {
-            GetInformation();
-            cooldown = 300;
-        }
+        //cooldown -= Time.deltaTime;
+        //if (cooldown <= 0)
+        //{
+        //    GetInformation();
+        //    cooldown = 300;
+        //}
     }
 
     void SetInformation()
@@ -261,6 +266,15 @@ public class Splatoon3ink : MonoBehaviour
         coopStage = nodesCoop[0].setting.coopStage.coopStageId;
         coopName = nodesCoop[0].setting.coopStage.name;
         StartCoroutine(GetWeapons());
+
+        Debug.Log(nodesRegular[0].startTime.ToLocalTime());
+        Debug.Log(nodesRegular[0].endTime.ToLocalTime());
+        Debug.Log(nodesCoop[0].startTime.ToLocalTime());
+        Debug.Log(nodesCoop[0].endTime.ToLocalTime());
+        timeRegS = nodesRegular[0].startTime.ToLocalTime().ToString("HH:mm");
+        timeRegE = nodesRegular[0].endTime.ToLocalTime().ToString("HH:mm");
+        timeCoopS = nodesCoop[0].startTime.ToLocalTime().ToString("dd/MM HH:mm");
+        timeCoopE = nodesCoop[0].endTime.ToLocalTime().ToString("dd/MM HH:mm");
     }
 
     public IEnumerator GetWeapons()
