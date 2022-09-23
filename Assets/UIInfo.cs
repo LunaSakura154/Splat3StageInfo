@@ -22,7 +22,13 @@ public class UIInfo : MonoBehaviour
     [SerializeField] UnityEngine.UI.RawImage weapon3;
     [SerializeField] UnityEngine.UI.Image fest0;
     [SerializeField] UnityEngine.UI.Image fest1;
-    [SerializeField] UnityEngine.UI.Image tri;
+    [SerializeField] UnityEngine.UI.RawImage tri;
+    [SerializeField] UnityEngine.UI.RawImage fweapon0;
+    [SerializeField] UnityEngine.UI.RawImage fweapon1;
+    [SerializeField] UnityEngine.UI.RawImage fweapon2;
+    [SerializeField] UnityEngine.UI.RawImage fweapon3;
+    [SerializeField] UnityEngine.UI.Image fcoop;
+
 
 
     [Header("Names")]
@@ -38,11 +44,17 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI fest0n;
     [SerializeField] TextMeshProUGUI fest1n;
     [SerializeField] TextMeshProUGUI trin;
+    [SerializeField] TextMeshProUGUI fcoopn;
+
 
     [Header("Misc")]
     [SerializeField] TextMeshProUGUI version;
     [SerializeField] TextMeshProUGUI timeRegu;
     [SerializeField] TextMeshProUGUI timeCoop;
+    [SerializeField] TextMeshProUGUI timeFest;
+    [SerializeField] TextMeshProUGUI timeTri;
+    [SerializeField] TextMeshProUGUI timeFestStage;
+    [SerializeField] TextMeshProUGUI timeFestCoop;
     [SerializeField] GameObject normalUI;
     [SerializeField] GameObject festUI;
 
@@ -71,6 +83,8 @@ public class UIInfo : MonoBehaviour
 
         coop.sprite = coopImages[ink.coopStage];
         coopn.text = ink.coopName;
+        fcoop.sprite = coop.sprite;
+        fcoopn.text = coopn.text;
 
         version.text = Application.version;
 
@@ -78,9 +92,27 @@ public class UIInfo : MonoBehaviour
         weapon1.texture = ink.weap1;
         weapon2.texture = ink.weap2;
         weapon3.texture = ink.weap3;
+        fweapon0.texture = weapon0.texture;
+        fweapon1.texture = weapon1.texture;
+        fweapon2.texture = weapon2.texture;
+        fweapon3.texture = weapon3.texture;
+
 
         timeRegu.text = new string(ink.timeRegS + " - " + ink.timeRegE);
         timeCoop.text = new string(ink.timeCoopS + " - " + ink.timeCoopE);
+        timeFest.text = new string(ink.timeFestS + " - " + ink.timeFestE);
+        timeTri.text = new string(ink.timeFestM + " - " + ink.timeFestE);
+        timeFestStage.text = timeRegu.text;
+        timeFestCoop.text = timeCoop.text;
+
+        fest0.sprite = images[ink.stagef0];
+        fest0n.text = ink.stagef0Name;
+        fest1.sprite = images[ink.stagef1];
+        fest1n.text = ink.stagef1Name;
+        tri.texture = ink.stageTri;
+        trin.text = ink.stageTriName;
+
+        festMode = ink.festMode;
 
         if (festMode)
         {

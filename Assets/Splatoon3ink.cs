@@ -40,6 +40,18 @@ public class CoopStage
     public Image image { get; set; }
     public string id { get; set; }
 }
+public class CurrentFest
+{
+    public string id { get; set; }
+    public string title { get; set; }
+    public DateTime startTime { get; set; }
+    public DateTime endTime { get; set; }
+    public DateTime midtermTime { get; set; }
+    public string state { get; set; }
+    public List<Team> teams { get; set; }
+    public TricolorStage tricolorStage { get; set; }
+}
+
 
 public class CurrentPlayer
 {
@@ -54,9 +66,17 @@ public class Data
     public LeagueSchedules leagueSchedules { get; set; }
     public CoopGroupingSchedule coopGroupingSchedule { get; set; }
     public FestSchedules festSchedules { get; set; }
-    public object currentFest { get; set; }
+    public CurrentFest currentFest { get; set; }
     public CurrentPlayer currentPlayer { get; set; }
     //public VsStages vsStages { get; set; }
+}
+
+public class FestMatchSetting
+{
+    public string __typename { get; set; }
+    public string __isVsSetting { get; set; }
+    public List<VsStage> vsStages { get; set; }
+    public VsRule vsRule { get; set; }
 }
 
 public class FestSchedules
@@ -87,7 +107,7 @@ public class Node
     public DateTime startTime { get; set; }
     public DateTime endTime { get; set; }
     public RegularMatchSetting regularMatchSetting { get; set; }
-    public object festMatchSetting { get; set; }
+    public FestMatchSetting festMatchSetting { get; set; }
     public List<BankaraMatchSetting> bankaraMatchSettings { get; set; }
     public XMatchSetting xMatchSetting { get; set; }
     public LeagueMatchSetting leagueMatchSetting { get; set; }
@@ -132,6 +152,21 @@ public class Setting
 public class ThumbnailImage
 {
     public string url { get; set; }
+}
+
+public class Team
+{
+    public string id { get; set; }
+    public Color color { get; set; }
+    public object myVoteState { get; set; }
+    public object role { get; set; }
+}
+
+public class TricolorStage
+{
+    public string name { get; set; }
+    public Image image { get; set; }
+    public string id { get; set; }
 }
 
 public class UserIcon
@@ -201,7 +236,7 @@ public class Splatoon3ink : MonoBehaviour
     public string stagef0Name;
     public int stagef1;
     public string stagef1Name;
-    public int stageTri;
+    public Texture stageTri;
     public string stageTriName;
 
     public List<Node> nodesRegular;
@@ -209,6 +244,11 @@ public class Splatoon3ink : MonoBehaviour
     public List<Node> nodesCoop;
     public List<Weapon> salmonWeapons;
     public List<Node> nodesFest;
+    public CurrentFest currentFest;
+
+    public bool festMode;
+
+
 
     public float cooldown;
 
@@ -222,6 +262,7 @@ public class Splatoon3ink : MonoBehaviour
     public string timeCoopS;
     public string timeCoopE;
     public string timeFestS;
+    public string timeFestM;
     public string timeFestE;
     
     private void Start()
@@ -239,6 +280,7 @@ public class Splatoon3ink : MonoBehaviour
         nodesCoop = data.data.coopGroupingSchedule.regularSchedules.nodes;
         salmonWeapons = data.data.coopGroupingSchedule.regularSchedules.nodes[0].setting.weapons;
         nodesFest = data.data.festSchedules.nodes;
+        currentFest = data.data.currentFest;
         Debug.Log("Information Requested");
         SetInformation();
         await Task.Delay(-1);
@@ -257,26 +299,47 @@ public class Splatoon3ink : MonoBehaviour
 
     void SetInformation()
     {
-        stager0 = nodesRegular[0].regularMatchSetting.vsStages[0].vsStageId;
-        stager0Name = nodesRegular[0].regularMatchSetting.vsStages[0].name;
-        stager1 = nodesRegular[0].regularMatchSetting.vsStages[1].vsStageId;
-        stager1Name = nodesRegular[0].regularMatchSetting.vsStages[1].name;
+        if (nodesRegular[0].regularMatchSetting != null)
+        {
+            stager0 = nodesRegular[0].regularMatchSetting.vsStages[0].vsStageId;
+            stager0Name = nodesRegular[0].regularMatchSetting.vsStages[0].name;
+            stager1 = nodesRegular[0].regularMatchSetting.vsStages[1].vsStageId;
+            stager1Name = nodesRegular[0].regularMatchSetting.vsStages[1].name;
 
-        stageas0 = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[0].vsStageId;
-        stageas0Name = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[0].name;
-        stageas1 = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[1].vsStageId;
-        stageas1Name = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[1].name;
+            stageas0 = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[0].vsStageId;
+            stageas0Name = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[0].name;
+            stageas1 = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[1].vsStageId;
+            stageas1Name = nodesAnarchy[0].bankaraMatchSettings[0].vsStages[1].name;
 
-        stageao0 = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].vsStageId;
-        stageao0Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].name;
-        stageao1 = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].vsStageId;
-        stageao1Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].name;
+            stageao0 = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].vsStageId;
+            stageao0Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].name;
+            stageao1 = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].vsStageId;
+            stageao1Name = nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].name;
 
-        seriesMode = nodesAnarchy[0].bankaraMatchSettings[0].vsRule.name;
-        openMode = nodesAnarchy[0].bankaraMatchSettings[1].vsRule.name;
+            seriesMode = nodesAnarchy[0].bankaraMatchSettings[0].vsRule.name;
+            openMode = nodesAnarchy[0].bankaraMatchSettings[1].vsRule.name;
+        }
         coopStage = nodesCoop[0].setting.coopStage.coopStageId;
         coopName = nodesCoop[0].setting.coopStage.name;
         StartCoroutine(GetWeapons());
+
+        if (nodesFest[0].festMatchSetting != null)
+        {
+            stagef0 = nodesFest[0].festMatchSetting.vsStages[0].vsStageId;
+            stagef0Name = nodesFest[0].festMatchSetting.vsStages[0].name;
+            stagef1 = nodesFest[0].festMatchSetting.vsStages[1].vsStageId;
+            stagef1Name = nodesFest[0].festMatchSetting.vsStages[1].name;
+            stageTriName = currentFest.tricolorStage.name;
+            StartCoroutine(TriImage());
+            festMode = true;
+        }
+        else
+        {
+            festMode = false;
+        }
+            timeFestS = currentFest.startTime.ToLocalTime().ToString("dd MMM HH:mm");
+            timeFestM = currentFest.midtermTime.ToLocalTime().ToString("dd MMM HH:mm");
+            timeFestE = currentFest.endTime.ToLocalTime().ToString("dd MMM HH:mm");
 
         Debug.Log(nodesRegular[0].startTime.ToLocalTime());
         Debug.Log(nodesRegular[0].endTime.ToLocalTime());
@@ -303,5 +366,12 @@ public class Splatoon3ink : MonoBehaviour
         yield return www3.SendWebRequest();
         weap3 = ((DownloadHandlerTexture)www3.downloadHandler).texture;
 
+    }
+
+    public IEnumerator TriImage()
+    {
+        UnityWebRequest www0 = UnityWebRequestTexture.GetTexture(currentFest.tricolorStage.image.url);
+        yield return www0.SendWebRequest();
+        stageTri = ((DownloadHandlerTexture)www0.downloadHandler).texture;
     }
 }
