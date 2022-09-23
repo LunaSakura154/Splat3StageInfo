@@ -19,7 +19,7 @@ public class Notifications : MonoBehaviour
         {
             Id = "Splatcast",
             Name = "Splatcast",
-            Importance = Importance.Default,
+            Importance = Importance.High,
             Description = "Splatcast News"
         };
         AndroidNotificationCenter.RegisterNotificationChannel(channel);
@@ -28,19 +28,16 @@ public class Notifications : MonoBehaviour
         //TestNotif();
         for (int i = 0; i < 168; i+=2)
         {
-            if (IsEven(DateTime.Now.Hour))
+            if (IsEven(DateTime.Now.ToUniversalTime().Hour))
             {
-                Debug.Log(IsEven(DateTime.Now.Hour));
+                Debug.Log(IsEven(DateTime.Now.ToUniversalTime().Hour));
                 Lol(i + 2, 0);
             }
             else
             {
+                Debug.Log(IsEven(DateTime.Now.ToUniversalTime().Hour));
                 Lol(i + 1, 0);
             }
-        }
-        for (int i = 0; i < 24; i+= 2)
-        {
-            //Lol(i, 1);
         }
 
         if (Debug.isDebugBuild)

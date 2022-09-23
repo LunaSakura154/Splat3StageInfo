@@ -25,7 +25,7 @@ public class Manager : MonoBehaviour
             LandscapeUI.SetActive(true);
         }
 #endif
-        
+
 
     }
 }

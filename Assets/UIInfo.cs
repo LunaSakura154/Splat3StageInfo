@@ -7,6 +7,7 @@ using TMPro;
 public class UIInfo : MonoBehaviour
 {
     [SerializeField] Splatoon3ink ink;
+    [SerializeField] bool festMode;
     [Header("Images")]
     [SerializeField] UnityEngine.UI.Image reg0;
     [SerializeField] UnityEngine.UI.Image reg1;
@@ -19,6 +20,11 @@ public class UIInfo : MonoBehaviour
     [SerializeField] UnityEngine.UI.RawImage weapon1;
     [SerializeField] UnityEngine.UI.RawImage weapon2;
     [SerializeField] UnityEngine.UI.RawImage weapon3;
+    [SerializeField] UnityEngine.UI.Image fest0;
+    [SerializeField] UnityEngine.UI.Image fest1;
+    [SerializeField] UnityEngine.UI.Image tri;
+
+
     [Header("Names")]
     [SerializeField] TextMeshProUGUI reg0n;
     [SerializeField] TextMeshProUGUI reg1n;
@@ -29,11 +35,17 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI series;
     [SerializeField] TextMeshProUGUI open;
     [SerializeField] TextMeshProUGUI coopn;
+    [SerializeField] TextMeshProUGUI fest0n;
+    [SerializeField] TextMeshProUGUI fest1n;
+    [SerializeField] TextMeshProUGUI trin;
 
     [Header("Misc")]
     [SerializeField] TextMeshProUGUI version;
     [SerializeField] TextMeshProUGUI timeRegu;
     [SerializeField] TextMeshProUGUI timeCoop;
+    [SerializeField] GameObject normalUI;
+    [SerializeField] GameObject festUI;
+
 
     public Sprite[] images;
     public Sprite[] coopImages;
@@ -61,7 +73,7 @@ public class UIInfo : MonoBehaviour
         coopn.text = ink.coopName;
 
         version.text = Application.version;
-        
+
         weapon0.texture = ink.weap0;
         weapon1.texture = ink.weap1;
         weapon2.texture = ink.weap2;
@@ -70,5 +82,15 @@ public class UIInfo : MonoBehaviour
         timeRegu.text = new string(ink.timeRegS + " - " + ink.timeRegE);
         timeCoop.text = new string(ink.timeCoopS + " - " + ink.timeCoopE);
 
+        if (festMode)
+        {
+            festUI.SetActive(true);
+            normalUI.SetActive(false);
+        }
+        else
+        {
+            festUI.SetActive(false);
+            normalUI.SetActive(true);
+        }
     }
 }

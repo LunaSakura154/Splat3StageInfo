@@ -197,10 +197,18 @@ public class Splatoon3ink : MonoBehaviour
     public int coopStage;
     public string coopName;
 
+    public int stagef0;
+    public string stagef0Name;
+    public int stagef1;
+    public string stagef1Name;
+    public int stageTri;
+    public string stageTriName;
+
     public List<Node> nodesRegular;
     public List<Node> nodesAnarchy;
     public List<Node> nodesCoop;
     public List<Weapon> salmonWeapons;
+    public List<Node> nodesFest;
 
     public float cooldown;
 
@@ -213,6 +221,8 @@ public class Splatoon3ink : MonoBehaviour
     public string timeRegE;
     public string timeCoopS;
     public string timeCoopE;
+    public string timeFestS;
+    public string timeFestE;
     
     private void Start()
     {
@@ -228,6 +238,7 @@ public class Splatoon3ink : MonoBehaviour
         nodesAnarchy = data.data.bankaraSchedules.nodes;
         nodesCoop = data.data.coopGroupingSchedule.regularSchedules.nodes;
         salmonWeapons = data.data.coopGroupingSchedule.regularSchedules.nodes[0].setting.weapons;
+        nodesFest = data.data.festSchedules.nodes;
         Debug.Log("Information Requested");
         SetInformation();
         await Task.Delay(-1);
@@ -273,8 +284,8 @@ public class Splatoon3ink : MonoBehaviour
         Debug.Log(nodesCoop[0].endTime.ToLocalTime());
         timeRegS = nodesRegular[0].startTime.ToLocalTime().ToString("HH:mm");
         timeRegE = nodesRegular[0].endTime.ToLocalTime().ToString("HH:mm");
-        timeCoopS = nodesCoop[0].startTime.ToLocalTime().ToString("dd/MM HH:mm");
-        timeCoopE = nodesCoop[0].endTime.ToLocalTime().ToString("dd/MM HH:mm");
+        timeCoopS = nodesCoop[0].startTime.ToLocalTime().ToString("dd MMM HH:mm");
+        timeCoopE = nodesCoop[0].endTime.ToLocalTime().ToString("dd MMM HH:mm");
     }
 
     public IEnumerator GetWeapons()
