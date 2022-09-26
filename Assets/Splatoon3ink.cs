@@ -332,14 +332,14 @@ public class Splatoon3ink : MonoBehaviour
             stageTriName = currentFest.tricolorStage.name;
             StartCoroutine(TriImage());
             festMode = true;
+            timeFestS = currentFest.startTime.ToLocalTime().ToString("dd MMM HH:mm");
+            timeFestM = currentFest.midtermTime.ToLocalTime().ToString("dd MMM HH:mm");
+            timeFestE = currentFest.endTime.ToLocalTime().ToString("dd MMM HH:mm");
         }
         else
         {
             festMode = false;
         }
-            timeFestS = currentFest.startTime.ToLocalTime().ToString("dd MMM HH:mm");
-            timeFestM = currentFest.midtermTime.ToLocalTime().ToString("dd MMM HH:mm");
-            timeFestE = currentFest.endTime.ToLocalTime().ToString("dd MMM HH:mm");
 
         Debug.Log(nodesRegular[0].startTime.ToLocalTime());
         Debug.Log(nodesRegular[0].endTime.ToLocalTime());

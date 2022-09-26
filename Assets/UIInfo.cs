@@ -57,6 +57,7 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeFestCoop;
     [SerializeField] GameObject normalUI;
     [SerializeField] GameObject festUI;
+    [SerializeField] Texture placeholder;
 
 
     public Sprite[] images;
@@ -111,6 +112,11 @@ public class UIInfo : MonoBehaviour
         fest1n.text = ink.stagef1Name;
         tri.texture = ink.stageTri;
         trin.text = ink.stageTriName;
+
+        if(ink.stageTri == null)
+        {
+            tri.texture = placeholder;
+        }
 
         festMode = ink.festMode;
 

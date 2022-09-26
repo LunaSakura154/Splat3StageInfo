@@ -1,7 +1,3 @@
-v1.5
--Splatfest Support
--UTC Time
-
 v2.x
 -Music Player
 -Multiple Backgrounds
