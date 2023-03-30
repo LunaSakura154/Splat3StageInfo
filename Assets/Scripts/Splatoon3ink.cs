@@ -112,6 +112,7 @@ public class Node
     public XMatchSetting xMatchSetting { get; set; }
     public LeagueMatchSetting leagueMatchSetting { get; set; }
     public Setting setting { get; set; }
+    public string __splatoon3ink_king_salmonid_guess { get; set; }
     public int stageId { get; set; }
     public string id { get; set; }
     public OriginalImage originalImage { get; set; }
@@ -264,9 +265,30 @@ public class Splatoon3ink : MonoBehaviour
     public string timeFestS;
     public string timeFestM;
     public string timeFestE;
+
+    public Texture sr0;
+    public Texture sr1;
+    public Texture sas0;
+    public Texture sas1;
+    public Texture sao0;
+    public Texture sao1;
+    public Texture coop0;
+    public Texture fest0;
+    public Texture fest1;
+    [Space]
+    public Texture placeholder;
+    [Space]
+    public string SalmonKing;
     
     private void Start()
     {
+          sr0 = placeholder;
+          sr1 = placeholder;
+         sas0 = placeholder;
+         sas1 = placeholder;
+         sao0 = placeholder;
+         sao1 = placeholder;
+        coop0 = placeholder;
         GetInformation();
         //SetInformation();
     }
@@ -321,7 +343,9 @@ public class Splatoon3ink : MonoBehaviour
         }
         coopStage = nodesCoop[0].setting.coopStage.coopStageId;
         coopName = nodesCoop[0].setting.coopStage.name;
+        SalmonKing = nodesCoop[0].__splatoon3ink_king_salmonid_guess;
         StartCoroutine(GetWeapons());
+        StartCoroutine(GetStageImages());
 
         if (nodesFest[0].festMatchSetting != null)
         {
@@ -330,6 +354,7 @@ public class Splatoon3ink : MonoBehaviour
             stagef1 = nodesFest[0].festMatchSetting.vsStages[1].vsStageId;
             stagef1Name = nodesFest[0].festMatchSetting.vsStages[1].name;
             stageTriName = currentFest.tricolorStage.name;
+            StartCoroutine(GetFestStages());
             StartCoroutine(TriImage());
             festMode = true;
             timeFestS = currentFest.startTime.ToLocalTime().ToString("dd MMM HH:mm");
@@ -355,18 +380,56 @@ public class Splatoon3ink : MonoBehaviour
     {
         UnityWebRequest www0 = UnityWebRequestTexture.GetTexture(salmonWeapons[0].image.url);
         yield return www0.SendWebRequest();
-        weap0 = ((DownloadHandlerTexture)www0.downloadHandler).texture;
         UnityWebRequest www1 = UnityWebRequestTexture.GetTexture(salmonWeapons[1].image.url);
         yield return www1.SendWebRequest();
-        weap1 = ((DownloadHandlerTexture)www1.downloadHandler).texture;
         UnityWebRequest www2 = UnityWebRequestTexture.GetTexture(salmonWeapons[2].image.url);
         yield return www2.SendWebRequest();
-        weap2 = ((DownloadHandlerTexture)www2.downloadHandler).texture;
         UnityWebRequest www3 = UnityWebRequestTexture.GetTexture(salmonWeapons[3].image.url);
         yield return www3.SendWebRequest();
+        weap0 = ((DownloadHandlerTexture)www0.downloadHandler).texture;
+        weap1 = ((DownloadHandlerTexture)www1.downloadHandler).texture;
+        weap2 = ((DownloadHandlerTexture)www2.downloadHandler).texture;
         weap3 = ((DownloadHandlerTexture)www3.downloadHandler).texture;
 
     }
+
+    public IEnumerator GetStageImages()
+    {
+        UnityWebRequest r0 = UnityWebRequestTexture.GetTexture(nodesRegular[0].regularMatchSetting.vsStages[0].image.url);
+        yield return r0.SendWebRequest();
+        UnityWebRequest r1 = UnityWebRequestTexture.GetTexture(nodesRegular[0].regularMatchSetting.vsStages[1].image.url);
+        yield return r1.SendWebRequest();
+        UnityWebRequest s0 = UnityWebRequestTexture.GetTexture(nodesAnarchy[0].bankaraMatchSettings[0].vsStages[0].image.url);
+        yield return s0.SendWebRequest();
+        UnityWebRequest s1 = UnityWebRequestTexture.GetTexture(nodesAnarchy[0].bankaraMatchSettings[0].vsStages[1].image.url);
+        yield return s1.SendWebRequest();
+        UnityWebRequest o0 = UnityWebRequestTexture.GetTexture(nodesAnarchy[0].bankaraMatchSettings[1].vsStages[0].image.url);
+        yield return o0.SendWebRequest();
+        UnityWebRequest o1 = UnityWebRequestTexture.GetTexture(nodesAnarchy[0].bankaraMatchSettings[1].vsStages[1].image.url);
+        yield return o1.SendWebRequest();
+        UnityWebRequest coop = UnityWebRequestTexture.GetTexture(nodesCoop[0].setting.coopStage.image.url);
+        yield return coop.SendWebRequest();
+        sr0 = ((DownloadHandlerTexture)r0.downloadHandler).texture;
+        sr1 = ((DownloadHandlerTexture)r1.downloadHandler).texture;
+        sas0 = ((DownloadHandlerTexture)s0.downloadHandler).texture;
+        sas1 = ((DownloadHandlerTexture)s1.downloadHandler).texture;
+        sao1 = ((DownloadHandlerTexture)o1.downloadHandler).texture;
+        sao0 = ((DownloadHandlerTexture)o0.downloadHandler).texture;
+        coop0 = ((DownloadHandlerTexture)coop.downloadHandler).texture;
+
+    }
+
+    public IEnumerator GetFestStages()
+    {
+        UnityWebRequest f0 = UnityWebRequestTexture.GetTexture(nodesFest[0].festMatchSetting.vsStages[0].image.url);
+        yield return f0.SendWebRequest();
+        UnityWebRequest f1 = UnityWebRequestTexture.GetTexture(nodesFest[0].festMatchSetting.vsStages[1].image.url);
+        yield return f1.SendWebRequest();
+
+        fest0 = ((DownloadHandlerTexture)f0.downloadHandler).texture;
+        fest1 = ((DownloadHandlerTexture)f1.downloadHandler).texture;
+    }
+
 
     public IEnumerator TriImage()
     {

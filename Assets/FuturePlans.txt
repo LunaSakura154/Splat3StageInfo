@@ -1,5 +1,8 @@
 v2.x
+-Custom Profiles
 -Music Player
 -Multiple Backgrounds
+
+v3.x
 -Squid Jump remake
--Splatnet Gear
+-NXAPI

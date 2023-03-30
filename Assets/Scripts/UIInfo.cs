@@ -45,6 +45,8 @@ public class UIInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI fest1n;
     [SerializeField] TextMeshProUGUI trin;
     [SerializeField] TextMeshProUGUI fcoopn;
+    [SerializeField] TextMeshProUGUI king;
+    [SerializeField] TextMeshProUGUI fking;
 
 
     [Header("Misc")]
@@ -72,20 +74,29 @@ public class UIInfo : MonoBehaviour
         op0n.text = ink.stageao0Name;
         op1n.text = ink.stageao1Name;
 
-        reg0.sprite = images[ink.stager0];
-        reg1.sprite = images[ink.stager1];
-        ser0.sprite = images[ink.stageas0];
-        ser1.sprite = images[ink.stageas1];
-        op0.sprite = images[ink.stageao0];
-        op1.sprite = images[ink.stageao1];
+        //reg0.sprite = images[ink.stager0];
+        //reg1.sprite = images[ink.stager1];
+        //ser0.sprite = images[ink.stageas0];
+        //ser1.sprite = images[ink.stageas1];
+        //op0.sprite = images[ink.stageao0];
+        //op1.sprite = images[ink.stageao1];
+
+        reg0.sprite = Sprite.Create(ToTexture2D(ink.sr0),new Rect(0,0, ink.sr0.width, ink.sr0.height),new Vector2(0,0));
+        reg1.sprite = Sprite.Create(ToTexture2D(ink.sr1), new Rect(0, 0, ink.sr1.width, ink.sr1.height), new Vector2(0, 0));
+        ser0.sprite = Sprite.Create(ToTexture2D(ink.sas0),new Rect(0,0, ink.sas0.width, ink.sas0.height),new Vector2(0,0));
+        ser1.sprite = Sprite.Create(ToTexture2D(ink.sas1),new Rect(0,0, ink.sas1.width, ink.sas1.height),new Vector2(0,0));
+        op0.sprite = Sprite.Create(ToTexture2D(ink.sao0),new Rect(0,0, ink.sao0.width, ink.sao0.height),new Vector2(0,0));
+        op1.sprite = Sprite.Create(ToTexture2D(ink.sao1), new Rect(0, 0, ink.sao1.width, ink.sao1.height), new Vector2(0, 0));
 
         series.text = ink.seriesMode;
         open.text = ink.openMode;
 
-        coop.sprite = coopImages[ink.coopStage];
+        coop.sprite = Sprite.Create(ToTexture2D(ink.coop0), new Rect(0, 0, ink.coop0.width, ink.coop0.height), new Vector2(0, 0));
         coopn.text = ink.coopName;
-        fcoop.sprite = coop.sprite;
+        fcoop.sprite = Sprite.Create(ToTexture2D(ink.coop0), new Rect(0, 0, ink.coop0.width, ink.coop0.height), new Vector2(0, 0)); ;
         fcoopn.text = coopn.text;
+        king.text = ink.SalmonKing;
+        fking.text = king.text;
 
         version.text = Application.version;
 
@@ -106,9 +117,9 @@ public class UIInfo : MonoBehaviour
         timeFestStage.text = timeRegu.text;
         timeFestCoop.text = timeCoop.text;
 
-        fest0.sprite = images[ink.stagef0];
+        fest0.sprite = Sprite.Create(ToTexture2D(ink.fest0), new Rect(0, 0, ink.fest0.width, ink.fest0.height), new Vector2(0, 0)); ;
         fest0n.text = ink.stagef0Name;
-        fest1.sprite = images[ink.stagef1];
+        fest1.sprite = Sprite.Create(ToTexture2D(ink.fest1), new Rect(0, 0, ink.fest1.width, ink.fest1.height), new Vector2(0, 0));
         fest1n.text = ink.stagef1Name;
         tri.texture = ink.stageTri;
         trin.text = ink.stageTriName;
@@ -130,5 +141,15 @@ public class UIInfo : MonoBehaviour
             festUI.SetActive(false);
             normalUI.SetActive(true);
         }
+    }
+
+    public static Texture2D ToTexture2D(Texture texture)
+    {
+        return Texture2D.CreateExternalTexture(
+            texture.width,
+            texture.height,
+            TextureFormat.RGB24,
+            false, false,
+            texture.GetNativeTexturePtr());
     }
 }

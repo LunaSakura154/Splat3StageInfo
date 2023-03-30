@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Extra.unity
     guid: 09a2958ef61641444b5a0156648b19b4
+  - enabled: 1
+    path: Assets/Scenes/RoadMap.unity
+    guid: 3b2295256cb3c6048afcfbad03daf76b
   m_configObjects: {}
