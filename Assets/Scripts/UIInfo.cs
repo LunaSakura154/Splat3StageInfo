@@ -117,7 +117,7 @@ public class UIInfo : MonoBehaviour
         timeFestStage.text = timeRegu.text;
         timeFestCoop.text = timeCoop.text;
 
-        fest0.sprite = Sprite.Create(ToTexture2D(ink.fest0), new Rect(0, 0, ink.fest0.width, ink.fest0.height), new Vector2(0, 0)); ;
+        fest0.sprite = Sprite.Create(ToTexture2D(ink.fest0), new Rect(0, 0, ink.fest0.width, ink.fest0.height), new Vector2(0, 0)); ;   
         fest0n.text = ink.stagef0Name;
         fest1.sprite = Sprite.Create(ToTexture2D(ink.fest1), new Rect(0, 0, ink.fest1.width, ink.fest1.height), new Vector2(0, 0));
         fest1n.text = ink.stagef1Name;
